@@ -1,0 +1,73 @@
+.App {
+  text-align: center;
+}
+.Selected {
+  color :red  !important;
+}
+.normal {
+  color :#000;
+}
+.matching {
+  color :green;
+}
+.nomatching {
+  color :red;
+}
+.inputBox{
+  border:1px solid  red;
+  padding: 20px;
+  margin:20px;
+}
+.hide {
+  display: none;
+}
+inputa {
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+  background-color: white;
+  background-color: -moz-field;
+  border: 1px solid darkgray;
+  box-shadow: 1px 1px 1px 0 lightgray inset;  
+  font: -moz-field;
+  font: -webkit-small-control;
+  margin-top: 5px;
+  padding: 2px 3px;
+  width: 398px;    
+}
+
+
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
