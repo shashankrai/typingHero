@@ -1,4 +1,5 @@
-import React, { useState, useRef ,useEffect } from 'react';
+import React, { useState ,useEffect } from 'react';
+import faker  from 'faker';
 import '../../src/App.css';
 const  TyptingUtil  = () => {
     const [selectedIndex, setSelectedIndex] = useState(0);
@@ -6,7 +7,10 @@ const  TyptingUtil  = () => {
     const [lastTyped, setLasttyped] = useState('');
     const [typed, setTyped] = useState([]);
     const [typing, setTypeing] = useState('');
-    const inputRef = useRef(null);
+    const [second, setSecond] = useState(0);
+    const [minute, setMinute] = useState(4);
+    const [isActive, setIsActive] = useState(false);
+    const [counter, setCounter] = useState(60);
     const givenText ="Bamboo is a very sustatinable material and it grows very fast and it is present in every part of india" 
     const changedText =givenText.split(" ");
     const getSeleted = (index,current) => {
@@ -14,16 +18,45 @@ const  TyptingUtil  = () => {
         return isSelected ? 'Selected' : 'normal';
     }
     const [textTypedext, settextTyped] = useState('');
-    const inputRefs = [];
-    const focusInput = (id) => inputRefs[id].focus();
-    const setRef = (ref) => {
-        inputRefs.push(ref);
-      };
+
     useEffect(() => {
         console.log("came here");
-        // inputRefs[selectedIndex].focus();
-      }, [selectedIndex]); 
-   
+        const data =faker.lorem.words(20);
+         console.log("came here" ,data);
+    }, []); 
+
+
+
+    const compute = (counter) =>{
+        if(counter === 0) {
+             const setMinutes  = minute - 1;
+             const setSeconds  = 0;
+             setMinute(setMinutes);
+             setSecond(setSeconds);
+             setCounter(60);
+        }
+        else {
+            const setSeconds  = counter - 1;
+            const finalSeconds  = String(setSeconds).length === 1
+            ? `0${setSeconds}`
+            : setSeconds;
+            setSecond(finalSeconds);
+        }
+      
+    }
+    useEffect(() => {
+        let intervalId;
+    
+        if (isActive) {
+          intervalId = setInterval(() => {
+            compute(counter)
+            setCounter((counter) => counter - 1);
+          }, 1000);
+        }
+    
+        return () => clearInterval(intervalId);
+      }, [isActive, counter]);
+
     const finalOutput = () => {
         const formattedText =[];
         let finalIndex =0;
@@ -59,32 +92,20 @@ const  TyptingUtil  = () => {
     const data1 = finalOutput1(typed);
 
  
-    const handleSpace= (event) => {
-        inputRefs[0].focus();
-        console.log("aaa" ,event.target.value);
-        setTypeing(event.target.value)
-        const {value } =event.target;
-        console.log("typing",typing);
-        const newArray = value.split(" ");
-        console.log("valueArr",newArray);
-        setTyped(newArray);
-        if(event.keyCode === 32 ) {
-            if(value.trimEnd() !== lastTyped){
-                setSelectedIndex(selectedIndex+1);
-                setLasttyped(event.target.value);
-            }
-        }
-        if(event.keyCode === 8 ) {
-            if(event.keyCode === 8 || event.keyCode === 46) {
-                event.preventDefault();
-            }
-        }
-     };
+   
 
     const  handleChange  =(e) => {
+        console.log("handle change",e.target.value);
+        setIsActive(true);
         const updatedTyping =lastTyped+e.target.value;
-        setLasttyped(updatedTyping);
-        setTypeing(''); 
+        if(updatedTyping.trimEnd() !== lastTyped){
+            console.log("spance",e.target.value);
+            setLasttyped(updatedTyping);
+            setoneSpace(false)
+        } else {
+            setoneSpace(true)
+        }
+         setTypeing(''); 
      }
   
      const handleDown= (event) => {
@@ -94,8 +115,7 @@ const  TyptingUtil  = () => {
                 event.preventDefault();
             }
         }
-        else  if(event.keyCode === 32 ) {
-            console.log("if",event.key);
+        else  if(event.keyCode === 32 && !oneSpace ) {
             setSelectedIndex(selectedIndex+1);
             setLasttyped('');
         }else{ 
@@ -109,24 +129,21 @@ const  TyptingUtil  = () => {
     return (
     <div  tabindex="-1">
         <p>Let's take test</p>
+        <span>{`${minute}:${second}`}</span>
         {data.map((text) =>
         <>
         <div dangerouslySetInnerHTML={{ __html: text }} />
-        {/* <div dangerouslySetInnerHTML={{ __html: text }} /> <input type="text" onKeyDown ={handleSpace} ref={setRef}></input> */}
         </>
         )} 
         {data1.map((text) =>
         <>
             <div dangerouslySetInnerHTML={{ __html: text }} />
             </>
-        )} 
-
-        <input type="text"  ref={setRef} value  ={typing} onKeyDown ={handleDown} onChange ={handleChange}></input>
-    </div>
-
-
-
-   
+        )}
+        <div>
+          <input type="text"  value={typing} onKeyDown ={handleDown} onChange ={handleChange}></input>
+        </div> 
+    </div> 
     
     )
 }
