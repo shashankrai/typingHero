@@ -1,18 +1,25 @@
 .App {
   text-align: center;
 }
-.Selected {
+.selected {
   color :red  !important;
+  margin-left:10px;
 }
 .normal {
   color :#000;
+  margin-left:10px;
+
 }
 .matching {
   color :green;
+  margin-left:10px;
+
 }
 .nomatching {
   color :red;
+  margin-left:10px;
 }
+
 .inputBox{
   border:1px solid  red;
   padding: 20px;
@@ -62,7 +69,22 @@ inputa {
 .App-link {
   color: #61dafb;
 }
-
+@keyframes blinker {
+  from {opacity: 1.0;}
+  to {opacity: 0.0;}
+}
+.blink{
+  font-size:20px;
+  font-weight:20px;
+  color:#000;
+	text-decoration: blink;
+  animation:blinker;
+	animation-name: blinker;
+	animation-duration: 0.6s;
+	animation-iteration-count:infinite;
+	animation-timing-function:ease-in-out;
+	animation-direction: alternate;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -71,3 +93,16 @@ inputa {
     transform: rotate(360deg);
   }
 }
+.typedData {
+ border:3px solid black;
+ margin-top:40px;
+}
+.givenData {
+  border:3px solid red ;
+  margin-top:40px;
+ }
+.typedPara {
+  text-align: left;
+}
+
+
