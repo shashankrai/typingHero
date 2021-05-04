@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../src/App.css';
+import '../../src/App.scss';
 
 
 const  TypedComponenet =({typedData}) => {

@@ -1,5 +1,5 @@
-import './App.css';
-import Appmain from  './form/main'
+import './App.scss';
+import Appmain from  './form/home'
 
 
 
