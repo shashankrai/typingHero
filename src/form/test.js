@@ -5,6 +5,8 @@ import Typed from './typed'
 import Given from './given'
 import Result from './result'
 
+
+
 const TyptingUtil = ({ time }) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [oneSpace, setoneSpace] = useState(false);
@@ -14,16 +16,15 @@ const TyptingUtil = ({ time }) => {
     const [minute, setMinute] = useState(time);
     const [isTimeOver, setisTimeOver] = useState(false);
     const [isActive, setIsActive] = useState(false);
+    const [isRetake, setIsRetake] = useState(false);
     const [counter, setCounter] = useState(60);
-    const [givenData, setGivenData] = useState([]);
     const [originalData, setOriginalData] = useState([]);
 
     useEffect(() => {
         const data = faker.lorem.words(100);
         const changedText = data.split(" ");
         setOriginalData(changedText);
-        setGivenData(changedText);
-    }, []);
+    }, [isRetake]);
 
     useEffect(() => {
         let intervalId = null;
@@ -36,7 +37,6 @@ const TyptingUtil = ({ time }) => {
                     if (setMinutes < 0) {
                         setIsActive(false);
                         setisTimeOver(true)
-                        return () => clearInterval(intervalId);
                     }
                     setMinute(setMinutes);
                     setSecond(setSeconds);
@@ -52,7 +52,9 @@ const TyptingUtil = ({ time }) => {
                 setCounter((counter) => counter - 1);
             }, 1000);
         }
-        return () => clearInterval(intervalId);
+        return () => {
+            clearInterval(intervalId) 
+        };
     }, [isActive, counter, isTimeOver, minute]);
 
     useEffect(
@@ -134,18 +136,27 @@ const TyptingUtil = ({ time }) => {
             }
         }
     };
+    const retake = () =>{
+        console.log("is time");
+        setisTimeOver(false);
+        setIsActive(false);
+        setLasttyped('');
+        setTyped([]);
+        setSecond('00');
+        setSelectedIndex(0);
+        setoneSpace(false);
+        setMinute(time);
+        setCounter(60);
+        setIsRetake(true);
+      }
+   
 
     return (
-        isTimeOver ? <><Result></Result></> :
+        isTimeOver ? <><Result retake ={retake}></Result></> :
             <div className="testContainer">
                 <p className="logoheading">Let's take test</p>
                 {!isActive ? <span>{`Duration ::${minute + 1}:00`}</span> : <span>{`${minute}:${second}`}</span>}
-                {givenData ?
-                    <Given
-                        selectedIndex={selectedIndex}
-                        originalData={originalData}
-                    >
-                    </Given> : null}
+                <Given selectedIndex={selectedIndex} originalData={originalData}/>
                 <div className="divCustom" onKeyDown={handleDown} >
                     <Typed typedData={data2} ></Typed>
                 </div>

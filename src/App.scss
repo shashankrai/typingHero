@@ -108,8 +108,7 @@
  .typedData {
    padding: 17px;
    text-align: left;
-   overflow: scroll;
-   height: 150px;
+   height: 100px;
    .blink{
     font-size:25px;
     font-weight:700;
@@ -133,11 +132,9 @@
 }
 .typedPara {
   width: inherit;
-  overflow: hidden;
   overflow-wrap: break-word;
   text-align: left;
   font-size: 15px;
-  overflow-y: scroll;
   span {
     margin: 3px;
   }
@@ -165,6 +162,11 @@
     height: 100px;
   }
 
+}
+.divCustom{
+  overflow-y:scroll;
+  scroll-behavior: auto;
+  height: 100px;
 }
 
 

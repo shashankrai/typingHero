@@ -2,7 +2,21 @@ import React from 'react';
 import '../../src/App.scss';
 
 
-const Result = () => {
+const Result = ({retake}) => {
+
+// const totalchartyped =  typedData.word.toString().length;
+//time = x min ;
+//const WPM = TYPEDWORD/X;
+//Const char in min  = totoaltyped/min;
+//score = matching *10 - nomatching* 5; 
+//const mistypeWord = mistyped;
+// const percntage = misstyped/totalTyped *100;
+//retake  
+
+//    const retake = ({re}) =>{
+//      history.push('/home');
+//    }
+
 
     return (
         <div className="resultContainer">
@@ -25,7 +39,7 @@ const Result = () => {
                 </p>
 
             </div>
-            <button type="button" className="btn btn-primary">Retake Test</button>
+            <button type="button" className="btn btn-primary" onClick={retake}> Retake Test</button>
 
         </div>
 

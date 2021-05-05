@@ -9,7 +9,7 @@ const  TypedComponenet =({typedData}) => {
                         {typedData.map((data) => 
                             data.matching ===true ? <span className="matching">{data.value}</span>: <span className="nomatching">{data.value}</span>
                         )}
-                        <span class="blink">|</span>
+                        <span className="blink">|</span>
                 </p>
            </div>
     
