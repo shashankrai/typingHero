@@ -1,9 +1,7 @@
 import './App.scss';
-import Appmain from  './form/home'
+import Appmain from './components/home'
 
-
-
-function Home() {
+const Home = () => {
   return (
     <div className="App">
       <Appmain></Appmain>

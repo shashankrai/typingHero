@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import faker from 'faker/locale/en_US';
-import '../../src/App.scss';
-import Typed from './typed'
-import Given from './given'
+import Typed from './typedText'
+import Given from './givenText'
 import Result from './result'
 
 
 
-const TyptingUtil = ({ time }) => {
+const TypingUtill = ({ time }) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [oneSpace, setoneSpace] = useState(false);
     const [lastTyped, setLasttyped] = useState('');
     const [typed, setTyped] = useState([]);
-    const [second, setSecond] = useState('00');
+    const [second, setSecond] = useState('59');
     const [minute, setMinute] = useState(time);
     const [isTimeOver, setisTimeOver] = useState(false);
     const [isActive, setIsActive] = useState(false);
     const [isRetake, setIsRetake] = useState(false);
     const [counter, setCounter] = useState(60);
     const [originalData, setOriginalData] = useState([]);
+    const startTime = time + 1;
 
     useEffect(() => {
         const data = faker.lorem.words(100);
@@ -31,7 +31,11 @@ const TyptingUtil = ({ time }) => {
         if (isActive) {
 
             intervalId = setInterval(() => {
-                if (counter === 0) {
+                if (typed.length > originalData.length) {
+                    setIsActive(false);
+                    setisTimeOver(true)
+                }
+                else if (counter === 0) {
                     const setMinutes = minute - 1;
                     const setSeconds = 0;
                     if (setMinutes < 0) {
@@ -53,9 +57,9 @@ const TyptingUtil = ({ time }) => {
             }, 1000);
         }
         return () => {
-            clearInterval(intervalId) 
+            clearInterval(intervalId)
         };
-    }, [isActive, counter, isTimeOver, minute]);
+    }, [isActive, counter, isTimeOver, minute, typed, originalData]);
 
     useEffect(
         () => {
@@ -70,7 +74,7 @@ const TyptingUtil = ({ time }) => {
         [lastTyped, oneSpace]
     );
 
-    const finalOutput2 = (data) => {
+    const formattedOutput = (data) => {
         const formattedText = [];
         for (let i = 0; i < data.length; i++) {
             let newNode = null;
@@ -85,7 +89,8 @@ const TyptingUtil = ({ time }) => {
 
         return formattedText;
     };
-    const data2 = finalOutput2(typed);
+
+    const updatedData = formattedOutput(typed);
 
     const handleChange = (value) => {
         setIsActive(true);
@@ -104,6 +109,7 @@ const TyptingUtil = ({ time }) => {
             setTyped(typed);
         }
         else if (event.keyCode === 8 && typed.length) {
+            setoneSpace(false)
             const updatedTyped = lastTyped.substring(0, lastTyped.length - 1);
             if (lastTyped.length === 0 && selectedIndex > 0) {
                 setSelectedIndex(selectedIndex - 1);
@@ -136,8 +142,8 @@ const TyptingUtil = ({ time }) => {
             }
         }
     };
-    const retake = () =>{
-        console.log("is time");
+
+    const retake = () => {
         setisTimeOver(false);
         setIsActive(false);
         setLasttyped('');
@@ -148,20 +154,31 @@ const TyptingUtil = ({ time }) => {
         setMinute(time);
         setCounter(60);
         setIsRetake(true);
-      }
-   
+    }
+
+    const getcorrectTypedWord = () => {
+        const totalChar = updatedData.map(data => data.value);
+        const matching = updatedData.filter(data => data.matching);
+        return { totalChar: totalChar.join(" ").length, totalWord: updatedData.length, correct: matching.length, nonmatching: (updatedData.length - matching.length) };
+    }
 
     return (
-        isTimeOver ? <><Result retake ={retake}></Result></> :
+        isTimeOver ?
+            <Result
+                retake={retake}
+                time={time}
+                wordsDetails={getcorrectTypedWord}
+            >
+            </Result> :
             <div className="testContainer">
-                <p className="logoheading">Let's take test</p>
-                {!isActive ? <span>{`Duration ::${minute + 1}:00`}</span> : <span>{`${minute}:${second}`}</span>}
-                <Given selectedIndex={selectedIndex} originalData={originalData}/>
-                <div className="divCustom" onKeyDown={handleDown} >
-                    <Typed typedData={data2} ></Typed>
+                <p >Let's take test</p>
+                <p className="timer"> {!isActive ? <span>{`Time Remainings ${startTime}:00`}</span> : <span>{`${minute}:${second}`}</span>} </p>
+                <Given selectedIndex={selectedIndex} originalData={originalData} />
+                <div className="typedData" onKeyDown={handleDown} >
+                    <Typed typedData={updatedData} onSpace={oneSpace} ></Typed>
                 </div>
             </div>
 
     )
 }
-export default TyptingUtil;
+export default TypingUtill;

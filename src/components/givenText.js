@@ -1,7 +1,6 @@
 import React from 'react';
-import '../../src/App.scss';
 
-const GivenComponenet = ({ originalData, selectedIndex }) => {
+const GivenText = ({ originalData, selectedIndex }) => {
 
     return (
         <div className="givenData">
@@ -17,4 +16,4 @@ const GivenComponenet = ({ originalData, selectedIndex }) => {
     )
 }
 
-export default GivenComponenet;
+export default GivenText;

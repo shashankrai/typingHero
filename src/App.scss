@@ -1,62 +1,187 @@
-.App {
-  text-align: center;
-  height:100%;
-  min-height: 400px;
+.App-header {
+  min-height: 10vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  font-size: calc(10px + 2vmin);
+  color: #fff;
+  margin-bottom:20px;
+  .App-logo {
+    height: 20vmin;
+    pointer-events: none;
+   
+  }
+  .logoheading{
+    font-size: 20px;
+    color: #156a89;
+    font-weight: bold;
+  }
 }
-.logoheading{
-  font-size: 20px;
-  color: #156a89;
-  font-weight: bold;
+.App-link {
+  color: #61dafb;
 }
 .footer {
   padding: 20px;
   text-align: center;
+  height: 100px;
 }
-.testContainer{
-  height: 400px;
-  box-sizing: border-box;
-  border: 1px solid #000;
-  width: 600px;
+.App {
   text-align: center;
-  margin: 0 auto;
-  border-radius: 3px;
-  background-color: #fff;
-}
-.selectorContainer{
-  height: 400px;
-  box-sizing: border-box;
-  border: 1px solid #000;
-  width: 600px;
-  text-align: center;
-  margin: 0 auto;
-  border-radius: 3px;
-  box-shadow: inset 0 0 10px #000000;
-  h5{
-    padding:20px;
-  }
-  .form-select{
-    height: 30px;
-    width: 300px;
+  height: 100%;
+  min-height: 500px;
+  width: 100%;
+  .selectorContainer{
+    color:#156a89;
+    height: 500px;
+    box-sizing: border-box;
+    border: 1px solid #000;
+    width: 90%;
+    max-width:600px;
+    min-width:200px;
+    text-align: center;
+    margin: 0 auto;
     border-radius: 3px;
-    outline-color: #000;
-    border: 2px solid #000;
-  }
-  .selectInnerContainer{
-     padding:20px;
-     height: 200px;
-  }
-  .selectFooter {
-    border-top:1px solid grey;
-    p{
-      margin-top:20px; 
-      text-align: center;
+    box-shadow: inset 0 0 10px #000000;
+    h5{
+      padding:20px;
+    }
+    .form-select{
+      height: 30px;
+      width: 80%;
+      border-radius: 3px;
+      outline:none;
+      border: 1px solid #156a89;
+    }
+    .selectInnerContainer{
+       padding:20px;
+       height: 200px;
+    }
+    .selectFooter {
+      border-top:1px solid grey;
+      padding:20px;
+      .startBtn{
+        background-color:#ff9c00;
+        outline:none;
+      }
+      p{
+        text-align: center;
+      }
     }
   }
-}
+  .testContainer{
+    height: 700px;
+    box-sizing: border-box;
+    border: 2px solid #156a89;
+    width: 90%;
+    max-width:600px;
+    min-width:200px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 3px;
+    background-color: #fff;
+    p {
+      font-size: 20px;
+      color: #156a89;
+      font-weight: bold;
+    }
+    .timer{
+      color:red;
+      text-align: right;
+      padding-right: 19px;
+    }
+    .givenData {
+      height: 300px;
+      border-bottom:2px solid #156a89;
+      overflow: scroll;
+      p{
+        width: inherit;
+        overflow: hidden;
+        overflow-wrap: break-word;
+        padding: 14px;
+        text-align: left;
+        font-size: 15px;
+        span {
+          padding: 3px;
+        }
+        .selected {
+          color: #156a89;
+        }
+        .normal {
+          color :grey;
+        }
+      }
+     }
+    .typedData {
+      padding: 15px;
+      text-align: left;
+      height: 300px;
+      overflow: scroll;
+      .blink{
+       font-size:25px;
+       font-weight:700;
+       color: #156a89;
+       text-decoration: blink;
+       animation:blinker;
+       animation-name: blinker;
+       animation-duration: 0.6s;
+       animation-iteration-count:infinite;
+       animation-timing-function:ease-in-out;
+       animation-direction: alternate;
+     }
+     .space {
+       margin-left:7px;
+     }
+     .noSpace {
+       margin-left:-2px;
+     }
+     @keyframes App-logo-spin {
+       from {
+         transform: rotate(0deg);
+       }
+       to {
+         transform: rotate(360deg);
+       }
+     }
+     .typedPara {
+      width: inherit;
+      overflow: hidden;
+      overflow-wrap: break-word;
+      text-align: left;
+      font-size: 15px;
+      span {
+        padding: 3px;
+      }
+      .matching {
+        color :green;
+      }
+      .nomatching {
+        color :red;
+      }
+    }
+   }
+  }
+   
+  .resultContainer{ 
+    height: 450px;
+    box-sizing: border-box;
+    border: 1px solid #000;
+    width: 90%;
+    max-width:600px;
+    min-width:200px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 3px;
+    box-shadow: inset 0 0 10px #000000;
+    h2{ 
+      border-bottom:2px solid #000;
+    }
+    .resultItem{ 
+      height: 100px;
+    }
 
-.App-logo {
-  height: 20vmin;
-  pointer-events: none;
+  }
+
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -65,108 +190,9 @@
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
 @keyframes blinker {
   from {opacity: 1.0;}
   to {opacity: 0.0;}
-}
-.givenData {
-  width: inherit;
-  height: 230px;
-  border-bottom:2px solid grey;
-  p{
-    width: inherit;
-    overflow: hidden;
-    overflow-wrap: break-word;
-    padding: 14px;
-    text-align: left;
-    font-size: 15px;
-    span {
-      margin: 3px;
-    }
-    .selected {
-      color: #156a89;
-    }
-    .normal {
-      color :grey;
-    }
-  }
- }
- .typedData {
-   padding: 17px;
-   text-align: left;
-   height: 100px;
-   .blink{
-    font-size:25px;
-    font-weight:700;
-    color: #156a89;
-    text-decoration: blink;
-    animation:blinker;
-    animation-name: blinker;
-    animation-duration: 0.6s;
-    animation-iteration-count:infinite;
-    animation-timing-function:ease-in-out;
-    animation-direction: alternate;
-  }
-  @keyframes App-logo-spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-}
-.typedPara {
-  width: inherit;
-  overflow-wrap: break-word;
-  text-align: left;
-  font-size: 15px;
-  span {
-    margin: 3px;
-  }
-  .matching {
-    color :green;
-  }
-  .nomatching {
-    color :red;
-  }
-  
-}
-.resultContainer{ 
-  height: 400px;
-  box-sizing: border-box;
-  border: 1px solid #000;
-  width: 600px;
-  text-align: center;
-  margin: 0 auto;
-  border-radius: 3px;
-  box-shadow: inset 0 0 10px #000000;
-  h2{ 
-    border-bottom:2px solid #000;
-  }
-  .resultItem{ 
-    height: 100px;
-  }
-
-}
-.divCustom{
-  overflow-y:scroll;
-  scroll-behavior: auto;
-  height: 100px;
 }
 
 
